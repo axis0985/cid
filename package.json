@@ -1,0 +1,23 @@
+{
+  "name": "cid",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/axis0985/cid.git"
+  },
+  "author": "aftance",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/axis0985/cid/issues"
+  },
+  "dependencies": {
+    "socket.io": "1.7.2",
+    "express": "4.14.0"
+  }
+}

@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <title>Fuck head</title>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                var sock = io.connect('140.115.189.162:88',{reconnect: true});
+                var game = function(a){
+                    a.canvas = document.createElement('canvas');
+                    a.appendChild(a.canvas)
+                    a.ctx = a.canvas.getContext('2d');
+                    a.appendChild(a.canvas);
+                    a.ballx = 100;
+                    a.bally = 100;
+                    a.repaint = function(){
+                        a.ctx.clearRect(0,0,a.canvas.width,a.canvas.height);
+                        a.ctx.beginPath();
+                        a.ctx.arc(a.ballx,a.bally,10,0,2*Math.PI);
+                        a.ctx.stroke();
+                    }
+                    setInterval(a.repaint,40);
+                }
+                game($('#app')[0])
+                sock.on('ball',function(res){
+                    console.log(res.x)
+                    $('#app')[0].ballx = res.x;
+                    $('#app')[0].bally = res.y;
+                })
+                $('.move').click(function(e){
+                    e.preventDefault();
+                    sock.emit('move',{'x':$(this).attr('x'),'y':$(this).attr('y')});
+                })
+            })
+
+        </script>
+    </head>
+    <body>
+        <div id="app">
+        </div>
+        <div>
+            <button class="move" x='0' y='-1'>up</button>
+            <button class="move" x='0' y='1'>down</button>
+            <button class="move" x='-1' y='0'>left</button>
+            <button class="move" x='1' y='0'>right</button>
+        </div>
+    </body>
+</html>
